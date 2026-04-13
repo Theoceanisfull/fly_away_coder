@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-04-03T11:46:59+00:00",
+  "head_to_head": {
+    "largest_negative_margins": [
+      {
+        "margin": -0.3333333333333333,
+        "problem_name": "Absorption_coefficient_for_alloy_GaAlAs"
+      },
+      {
+        "margin": -0.3333333333333333,
+        "problem_name": "Design_trade_offs_for_high_speed_photodetectors"
+      },
+      {
+        "margin": -0.3333333333333333,
+        "problem_name": "Spliting_Operator"
+      },
+      {
+        "margin": -0.25,
+        "problem_name": "Stochastic_Lotka_Volterra"
+      },
+      {
+        "margin": 0.0,
+        "problem_name": "Spatial_filters_III"
+      }
+    ],
+    "largest_positive_margins": [
+      {
+        "margin": 1.0,
+        "problem_name": "Householder_QR"
+      },
+      {
+        "margin": 0.6,
+        "problem_name": "VQE"
+      },
+      {
+        "margin": 0.25,
+        "problem_name": "Berendsen_thermostat"
+      },
+      {
+        "margin": 0.25,
+        "problem_name": "helium_atom_vmc"
+      },
+      {
+        "margin": 0.25,
+        "problem_name": "Replica_symmetry_breaking"
+      }
+    ],
+    "model_a": "ollama/devstral-small-2:latest",
+    "model_b": "ollama/rnj-1:latest",
+    "unique_problem_wins": {
+      "ollama/devstral-small-2:latest": [
+        "Householder_QR"
+      ],
+      "ollama/rnj-1:latest": []
+    }
+  },
+  "overall_metrics": [
+    {
+      "duration_seconds": 31831.489315593004,
+      "executed_total_steps": 288,
+      "generated_code_files": 288,
+      "main_problem_correctness": 0.015384615384615385,
+      "missing_rate": 0.0,
+      "missing_steps": 0,
+      "model": "ollama/devstral-small-2:latest",
+      "nominal_total_steps": 291,
+      "passed_steps": 51,
+      "problems": 65,
+      "solved_problems": 1,
+      "subproblem_correctness": 0.17525773195876287,
+      "timeout_rate": 0.010309278350515464,
+      "timeout_steps": 3
+    },
+    {
+      "duration_seconds": 5152.458061354002,
+      "executed_total_steps": 288,
+      "generated_code_files": 288,
+      "main_problem_correctness": 0.0,
+      "missing_rate": 0.0,
+      "missing_steps": 0,
+      "model": "ollama/rnj-1:latest",
+      "nominal_total_steps": 291,
+      "passed_steps": 38,
+      "problems": 65,
+      "solved_problems": 0,
+      "subproblem_correctness": 0.13058419243986255,
+      "timeout_rate": 0.003436426116838488,
+      "timeout_steps": 1
+    }
+  ],
+  "phase": "benchmark"
+}

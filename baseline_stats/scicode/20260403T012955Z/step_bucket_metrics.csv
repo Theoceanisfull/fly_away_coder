@@ -1,0 +1,9 @@
+model,step_bucket,steps,passed,pass_rate,bucket_order
+ollama/devstral-small-2:latest,Q1,44,18,0.4090909090909091,1
+ollama/devstral-small-2:latest,Q2,81,18,0.2222222222222222,2
+ollama/devstral-small-2:latest,Q3,68,6,0.08823529411764706,3
+ollama/devstral-small-2:latest,Q4,95,9,0.09473684210526316,4
+ollama/rnj-1:latest,Q1,44,15,0.3409090909090909,1
+ollama/rnj-1:latest,Q2,81,15,0.18518518518518517,2
+ollama/rnj-1:latest,Q3,68,3,0.04411764705882353,3
+ollama/rnj-1:latest,Q4,95,5,0.05263157894736842,4

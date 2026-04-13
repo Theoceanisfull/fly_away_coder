@@ -1,0 +1,5 @@
+.venv/
+SciCode/.venv/
+__pycache__/
+*.pyc
+.codex
