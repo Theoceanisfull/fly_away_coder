@@ -1,0 +1,72 @@
+{
+  "description": "Pushable baseline benchmark report exports for the benchmark playground.",
+  "policy": {
+    "push": [
+      "benchmark harness code",
+      "aggregate benchmark reports under baseline_stats",
+      "documentation describing run provenance and target metrics"
+    ],
+    "keep_local": [
+      "SciCode/artifacts",
+      "SciCode/eval/data/test_data.h5",
+      "SciCode/livecodebench/code_generation_lite/test*.jsonl",
+      "raw model generations",
+      "inspect logs",
+      "task outputs",
+      "runner logs"
+    ]
+  },
+  "benchmarks": [
+    {
+      "name": "scicode",
+      "run_id": "20260403T012955Z",
+      "source_report_dir": "SciCode/artifacts/scicode_benchmarks/20260403T012955Z/benchmark/reports",
+      "destination_dir": "baseline_stats/scicode/20260403T012955Z",
+      "included_files": [
+        "summary.md",
+        "summary.json",
+        "overall_metrics.csv",
+        "per_problem.csv",
+        "per_step.csv",
+        "dependency_metrics.csv",
+        "step_bucket_metrics.csv"
+      ],
+      "omitted_artifacts": [
+        "inspect_logs",
+        "task_output",
+        "runner.log",
+        "SciCode/eval/data/test_data.h5"
+      ],
+      "target_to_beat": {
+        "model": "ollama/devstral-small-2:latest",
+        "main_problems_solved": 1,
+        "passed_steps": 51,
+        "subproblem_correctness": 0.17525773195876287
+      }
+    },
+    {
+      "name": "livecodebench",
+      "run_id": "20260407T200229Z",
+      "source_report_dir": "SciCode/artifacts/livecodebench_benchmarks/20260407T200229Z/benchmark/reports",
+      "destination_dir": "baseline_stats/livecodebench/20260407T200229Z",
+      "included_files": [
+        "summary.md",
+        "summary.json",
+        "overall_metrics.csv",
+        "per_problem.csv"
+      ],
+      "omitted_artifacts": [
+        "generations.json",
+        "generations.jsonl",
+        "evaluation/eval_all.json",
+        "runner.log",
+        "SciCode/livecodebench/code_generation_lite/test*.jsonl"
+      ],
+      "target_to_beat": {
+        "model": "ollama/devstral-small-2:latest",
+        "questions_with_any_correct_sample": 435,
+        "pass_at_1": 0.41232227488151657
+      }
+    }
+  ]
+}

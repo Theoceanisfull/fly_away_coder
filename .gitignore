@@ -1,5 +1,10 @@
+.codex
 .venv/
-SciCode/.venv/
 __pycache__/
 *.pyc
-.codex
+
+# Local benchmark payloads and generated run artifacts.
+SciCode/.venv/
+SciCode/artifacts/
+SciCode/eval/data/test_data.h5
+SciCode/livecodebench/code_generation_lite/test*.jsonl
