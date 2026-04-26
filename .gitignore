@@ -2,9 +2,24 @@
 .venv/
 __pycache__/
 *.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.cache/
+.DS_Store
 
-# Local benchmark payloads and generated run artifacts.
-SciCode/.venv/
-SciCode/artifacts/
-SciCode/eval/data/test_data.h5
-SciCode/livecodebench/code_generation_lite/test*.jsonl
+# Legacy local benchmark worktrees and exports.
+SciCode/
+baseline_stats/
+
+# Large local benchmark payloads.
+benchmarks/scicode/data/test_data.h5
+benchmarks/livecodebench/code_generation_lite/test*.jsonl
+benchmarks/livecodebench/code_generation_lite/.cache/
+benchmarks/livecodebench/code_generation_lite/__pycache__/
+
+# Generated experiment outputs.
+experiments/**/artifacts/
+experiments/serial_runs/
+experiments/**/__pycache__/

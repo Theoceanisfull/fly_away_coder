@@ -1,0 +1,8 @@
+# Common Python dependencies across the public experiment runners.
+dspy
+datasets
+h5py
+numpy
+openai
+pandas
+scipy

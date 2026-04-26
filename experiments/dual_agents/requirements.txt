@@ -1,0 +1,5 @@
+openai
+datasets
+h5py
+numpy
+scipy
