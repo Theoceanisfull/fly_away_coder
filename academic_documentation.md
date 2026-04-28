@@ -4,9 +4,9 @@
 
 This repository is a local research harness for evaluating inference-time methods for code generation on two hidden-test benchmarks: `SciCode` and `LiveCodeBench`. The main contribution is not a new model or a new benchmark. The contribution is a unified experimental stack that keeps the benchmark loaders, grouped split construction, hidden-test evaluators, local model endpoints, and artifact formats fixed while swapping the inference strategy. That makes the repo useful for controlled comparisons between one-shot prompting, prompt optimization, tool-using agents, computation-assisted reasoning, and compact multi-agent collaboration.
 
-As of `2026-04-26`, the completed evidence supports four main conclusions. First, `devstral` is the strongest plain single-pass baseline on both benchmarks. Second, `GEPA` is the strongest completed full-matrix single-agent method overall and the best completed single-agent method on `scicode/devstral`. Third, `ReAct` is a credible completed comparison point that improves three of the four benchmark/model pairs and sets the best completed single-agent result on `scicode/rnj` and `livecodebench/devstral`. Fourth, the best raw benchmark numbers come from the twin-agent protocol with `local_eval`, but those numbers are an upper-bound style result because hidden tests participate in final candidate selection.
+As of `2026-04-26`, the completed evidence supports four main conclusions. First, `devstral` is the strongest plain single-pass baseline on both benchmarks. Second, `GEPA` is the strongest completed full-matrix single-agent method overall and the best completed single-agent method on `scicode/devstral`. Third, `ReAct` is a credible completed comparison point that improves three of the four benchmark/model pairs and sets the best completed single-agent result on `scicode/rnj` and `livecodebench/devstral`. Fourth, the best raw benchmark numbers come from the twin-agent protocol with `local_eval`, and those numbers exceed every completed single-agent run, but they should be interpreted as an upper-bound style result because hidden tests participate in final candidate selection.
 
-`ProgramOfThought` should be treated as provisional at the time of writing. A timeout-guarded standalone rerun has completed the SciCode sub-runs, while the LiveCodeBench sub-runs were still in progress on `2026-04-26`.
+`ProgramOfThought` should be treated as provisional at the time of writing. A timeout-guarded standalone rerun has completed `3 / 4` benchmark/model runs, and only `livecodebench/devstral` remained in progress on `2026-04-26`.
 
 ## Research Scope
 
@@ -170,6 +170,41 @@ The best recorded run uses `local_eval`, which executes all six candidates on th
 | SciCode | Twin-agent `rnj + devstral` | `0.2580` | `20 / 94` | final answer selected with hidden-test `local_eval` |
 | LiveCodeBench | Twin-agent `rnj + devstral` | `0.2440` | `40 / 175` | final answer selected with hidden-test `local_eval` |
 
+### Overall Raw Leaderboard By Benchmark
+
+These tables rank every completed shared-split run currently available in the repo, including partial-matrix and provisional ProgramOfThought runs. They are useful descriptively, but not every row is equally methodologically clean.
+
+#### SciCode
+
+| Rank | Method | Model or setup | Mean score | Solved | Avg time / example (s) | Interpretation note |
+| --- | --- | --- | ---: | ---: | ---: | --- |
+| 1 | **Dual agents** | **`rnj + devstral`** | **0.2580** | **20 / 94** | **77.37** | **best overall raw score; upper-bound style result due to `local_eval`** |
+| 2 | **GEPA** | **`devstral`** | **0.2429** | **20 / 94** | **22.73** | **best completed single-agent** |
+| 3 | ProgramOfThought | `devstral` | 0.2376 | 18 / 94 | 3.50 | promising provisional result with very low average time |
+| 4 | CodeAct | `devstral` | 0.2367 | 19 / 94 | 35.36 | partial matrix only |
+| 5 | Baseline | `devstral` | 0.2305 | 20 / 94 | 19.97 | strongest clean one-shot baseline |
+| 6 | ReAct | `devstral` | 0.1871 | 15 / 94 | 62.89 | weakest `devstral` single-agent among completed SciCode variants here |
+| 7 | ReAct | `rnj` | 0.1764 | 12 / 94 | 95.21 | best `rnj` single-agent on SciCode |
+| 8 | Baseline | `rnj` | 0.1640 | 13 / 94 | 7.61 | clean one-shot baseline |
+| 9 | GEPA | `rnj` | 0.1640 | 13 / 94 | 1.30 | tied baseline score on this pair |
+| 10 | ProgramOfThought | `rnj` | 0.1268 | 9 / 94 | 3.06 | completed but weaker than the other SciCode methods |
+
+#### LiveCodeBench
+
+| Rank | Method | Model or setup | Mean score | Solved | Avg time / example (s) | Interpretation note |
+| --- | --- | --- | ---: | ---: | ---: | --- |
+| 1 | **Dual agents** | **`rnj + devstral`** | **0.2440** | **40 / 175** | **94.45** | **best overall raw score; upper-bound style result due to `local_eval`** |
+| 2 | **ReAct** | **`devstral`** | **0.2119** | **34 / 175** | **64.81** | **best completed single-agent** |
+| 3 | Baseline | `devstral` | 0.2011 | 34 / 175 | 26.84 | strongest clean one-shot baseline |
+| 4 | GEPA | `devstral` | 0.2011 | 34 / 175 | 0.74 | tied baseline score after optimization |
+| 5 | CodeAct | `rnj` | 0.1689 | 26 / 175 | 18.16 | best `rnj` single-agent on LiveCodeBench |
+| 6 | ReAct | `rnj` | 0.1647 | 26 / 175 | 45.39 | close behind CodeAct |
+| 7 | GEPA | `rnj` | 0.1601 | 26 / 175 | 9.87 | clear gain over baseline |
+| 8 | Baseline | `rnj` | 0.1373 | 22 / 175 | 9.04 | clean one-shot baseline |
+| 9 | ProgramOfThought | `rnj` | 0.0376 | 6 / 175 | 2.28 | currently weak on this benchmark |
+
+`ProgramOfThought + devstral` on LiveCodeBench is omitted because that run was still in progress at the time of this update.
+
 ### ProgramOfThought Status
 
 The current timeout-guarded standalone `ProgramOfThought` sweep was still running on `2026-04-26`. The completed sub-runs at that time were:
@@ -178,10 +213,32 @@ The current timeout-guarded standalone `ProgramOfThought` sweep was still runnin
 | --- | --- | ---: | ---: | --- |
 | SciCode | `rnj` | `0.1268` | `9 / 94` | complete |
 | SciCode | `devstral` | `0.2376` | `18 / 94` | complete |
-| LiveCodeBench | `rnj` | pending | pending | in progress |
+| LiveCodeBench | `rnj` | `0.0376` | `6 / 175` | complete |
 | LiveCodeBench | `devstral` | pending | pending | in progress |
 
 These partial results are informative but should stay outside the main comparison tables until the full matrix completes.
+
+## Multi-Lens Interpretation
+
+The same artifact set supports several distinct readings:
+
+1. **If the question is pure raw score, dual agents wins.**
+   It is the top-scoring configuration on both benchmarks. That should be reported clearly.
+
+2. **If the question is strongest completed full-matrix single-agent method, GEPA wins.**
+   Across the four comparable single-agent pairs, GEPA has the highest mean average at `0.1921`, ahead of ReAct at `0.1850` and baseline at `0.1832`.
+
+3. **If the question is strongest single-agent SciCode run, GEPA with `devstral` wins.**
+   Its `0.2429` mean score is the best completed single-agent SciCode result.
+
+4. **If the question is strongest single-agent LiveCodeBench run, ReAct with `devstral` wins.**
+   Its `0.2119` mean score is the best completed single-agent LiveCodeBench result.
+
+5. **If the question is what helps the weaker `rnj` model most, the answer depends on benchmark.**
+   ReAct is best for `rnj` on SciCode, while CodeAct is best for `rnj` on LiveCodeBench.
+
+6. **If the question is surprising speed/accuracy tradeoff, ProgramOfThought on SciCode is notable.**
+   The provisional `devstral` PoT SciCode result reaches `0.2376` mean score at only `3.50` average seconds per example, but that should not be over-claimed while the method remains incomplete overall and weak on the completed LiveCodeBench `rnj` run.
 
 ## Interpretation
 
@@ -192,7 +249,7 @@ The current evidence supports the following claims.
 3. `ReAct` is selective rather than uniformly dominant: it wins two of the four completed pairs but regresses sharply on `scicode/devstral`.
 4. `CodeAct` is promising on `livecodebench/rnj`, but the matrix is still incomplete.
 5. The twin-agent result is the current performance ceiling, but it is methodologically different because it uses hidden-test reranking.
-6. `ProgramOfThought` is now operationally more robust after the timeout fix, but the benchmark-level conclusion should wait for the LiveCodeBench runs to finish.
+6. `ProgramOfThought` is now operationally more robust after the timeout fix, and its SciCode `devstral` result is already competitive, but the benchmark-level conclusion should still wait for the remaining LiveCodeBench `devstral` run to finish.
 
 ## Related Work Positioning
 
