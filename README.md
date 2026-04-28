@@ -134,14 +134,7 @@ In practice:
 
 The benchmark timings currently summarized in this repo were recorded on the machine configuration visible on `2026-04-26`:
 
-| Component | Observed configuration |
-| --- | --- |
-| GPU | `NVIDIA L40S` |
-| GPU memory | `46068 MiB` VRAM reported by `nvidia-smi` |
-| NVIDIA driver | `580.126.20` |
-| CPU visible to the VM | `15` vCPUs on an `AMD EPYC 7713 64-Core Processor` host |
-| System memory visible to the VM | `59 GiB` RAM |
-| Model serving | Ollama at `http://localhost:11434` |
+Non-consumer hardware GPU used for quicker evaluation of benchmarks.
 
 The most useful wall-clock numbers for the shared held-out split experiments are:
 
